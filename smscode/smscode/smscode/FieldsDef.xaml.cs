@@ -10,117 +10,84 @@ namespace smscode
 {
     public partial class FieldsDef : ContentPage
     {
+        private String nameOfProject;
         private int numberOfFields;
+        private Entry[] entries;
 
         public FieldsDef(string nameOfProject, string noOfFields, string separator)
         {
             InitializeComponent();
-
+            this.nameOfProject = nameOfProject;
             numberOfFields = Int32.Parse(noOfFields);
-            var table = new TableView();
-            table.Intent = TableIntent.Settings;
 
-            var fields = new StackLayout() { Orientation = StackOrientation.Vertical };
+            Content = setview();
 
-            fields.Children.Add(new Label()
+        }
+
+        protected Layout setview()
+        {
+
+            var layout = new StackLayout() { Orientation = StackOrientation.Vertical };
+
+            layout.Children.Add(
+                new Grid
+                {
+                    Padding = new Thickness(30,30,30,30),
+                    Children ={
+                                new Label()
+                                {
+                                    Text = "Names of Fields",
+                                    TextColor = Color.FromHex("#f35e20"),
+                                    HorizontalOptions = LayoutOptions.CenterAndExpand
+                                }
+                              }
+                });
+
+            add_entries(ref layout);
+
+            layout.Children.Add( new Button()
             {
-                Text = "Fields",
+                Text = "Submit",
                 TextColor = Color.FromHex("#f35e20"),
                 HorizontalOptions = LayoutOptions.FillAndExpand
             });
 
-            if (numberOfFields-- > 0)
+            layout.Children.Add( new Button()
             {
-                fields.Children.Add(new Entry()
+                Text = "Go back",
+                TextColor = Color.FromHex("#f35e20"),
+                HorizontalOptions = LayoutOptions.FillAndExpand
+
+            });
+
+            return layout;
+        }
+
+        protected void add_entries(ref StackLayout layout)
+        {
+
+            entries = new Entry[numberOfFields];
+            for (int i = 0; i < numberOfFields; i++)
+            {
+                entries[i] = new Entry()
                 {
-                    Text = "Field1",
+                    Placeholder = "Field ",
                     TextColor = Color.FromHex("#f35e20"),
                     HorizontalOptions = LayoutOptions.FillAndExpand
-                });    
+                };
+
+                layout.Children.Add(entries[i]);
             }
+        }
 
-            if (numberOfFields-- > 0)
-            {
-                fields.Children.Add(new Entry()
-                {
-                    Text = "Field2",
-                    TextColor = Color.FromHex("#f35e20"),
-                    HorizontalOptions = LayoutOptions.FillAndExpand
-                });
-            }
+        public void clicked_submit_button()
+        {
 
-            if (numberOfFields-- > 0)
-            {
+        }
 
-                fields.Children.Add(new Entry()
-                {
-                    Text = "Field3",
-                    TextColor = Color.FromHex("#f35e20"),
-                    HorizontalOptions = LayoutOptions.FillAndExpand
-                });
-            }
+        public void clicked_goback_button()
+        {
 
-            if (numberOfFields-- > 0)
-            {
-                fields.Children.Add(new Entry()
-                {
-                    Text = "Field4",
-                    TextColor = Color.FromHex("#f35e20"),
-                    HorizontalOptions = LayoutOptions.FillAndExpand
-                });
-            }
-
-            if (numberOfFields-- > 0)
-            {
-                fields.Children.Add(new Entry()
-                {
-                    Text = "Field5",
-                    TextColor = Color.FromHex("#f35e20"),
-                    HorizontalOptions = LayoutOptions.FillAndExpand
-                });
-            }
-
-            if (numberOfFields-- > 0)
-            {
-                fields.Children.Add(new Entry()
-                {
-                    Text = "Field6",
-                    TextColor = Color.FromHex("#f35e20"),
-                    HorizontalOptions = LayoutOptions.FillAndExpand
-                });
-            }
-
-            if (numberOfFields-- > 0)
-            {
-                fields.Children.Add(new Entry()
-                {
-                    Text = "Field7",
-                    TextColor = Color.FromHex("#f35e20"),
-                    HorizontalOptions = LayoutOptions.FillAndExpand
-                });
-            }
-
-            if (numberOfFields-- > 0)
-            {
-                fields.Children.Add(new Entry()
-                {
-                    Text = "Field8",
-                    TextColor = Color.FromHex("#f35e20"),
-                    HorizontalOptions = LayoutOptions.FillAndExpand
-                });
-            }
-
-            if (numberOfFields-- > 0)
-            {
-                fields.Children.Add(new Entry()
-                {
-                    Text = "Field9",
-                    TextColor = Color.FromHex("#f35e20"),
-                    HorizontalOptions = LayoutOptions.FillAndExpand
-                });
-            }
-
-            Content = fields;
         }
     }
 }
